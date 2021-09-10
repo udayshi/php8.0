@@ -1,0 +1,2 @@
+#!/bin/bash
+docker run  --rm --name=alpine  -i -t udaysh/alpine-php8.0.10:latest sh

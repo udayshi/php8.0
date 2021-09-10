@@ -1,0 +1,16 @@
+version: "3.3"
+services:
+  php8:
+    image: udaysh/alpine-php8.0.10:latest
+    labels:
+      - "com.lowecloud.proxy=php8.docker"
+    volumes:
+      - "./app:/app"
+    network_mode: bridge
+
+  db:
+    image: udaysh/db_mariadb-10
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=php_db
+    network_mode: bridge

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+CONF=alpine-php8.0.10
+ docker build --rm    -t udaysh/$CONF .
