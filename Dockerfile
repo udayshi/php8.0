@@ -4,7 +4,7 @@ MAINTAINER shiuday@gmail.com
 
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache bash git build-base
+    apk add --no-cache bash git build-base nginx supervisor curl
 
 
 RUN  git config --global user.email "uday@php.net" && \
@@ -24,11 +24,11 @@ RUN wget https://www.php.net/distributions/php-8.0.10.tar.gz && \
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
-RUN apk add --no-cache  libxml2-dev openssl-dev pkgconfig sqlite-libs sqlite-dev curl-dev oniguruma-dev
+RUN apk add --no-cache  libxml2-dev openssl-dev pkgconfig sqlite-libs sqlite-dev curl-dev oniguruma-dev icu-dev libpng-dev libjpeg jpeg-dev
 
 ##Compile and build  module
 RUN cd /usr/local/src/php-8.0.10 && \
-    ./configure --enable-fpm --enable-debug  --with-openssl --with-pear --with-curl --with-iconv --enable-mbstring --enable-mysqlnd --with-pdo-mysql &&  \
+    ./configure --enable-fpm --enable-debug  --with-openssl --with-pear --with-curl --with-iconv --enable-mbstring --enable-mysqlnd --with-pdo-mysql --enable-intl --with-zlib  --with-jpeg   --enable-gd &&  \
     make && \
     make install
 #
@@ -36,11 +36,15 @@ RUN cd /usr/local/src/php-8.0.10 && \
 
 
 
-RUN apk add --no-cache nginx supervisor curl
+#RUN apk del build-base libxml2-dev openssl-dev pkgconfig sqlite-libs sqlite-dev curl-dev oniguruma-dev icu-dev libpng-dev libjpeg jpeg-dev
+
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     chmod +x /usr/local/bin/composer && \
     composer self-update
+
+
+RUN apk del build-base pkgconfig libjpeg
 
 RUN rm -rf /usr/local/src* && \
     rm -rf /var/cache/apk/* && \
@@ -51,6 +55,7 @@ RUN rm -rf /usr/local/src* && \
 ADD manifest/nginx.sf5.conf /etc/nginx/nginx.conf
 ADD manifest/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD ./manifest/php /usr/local/etc
+RUN mkdir -p /var/sessions && chmod 777 /var/sessions
 #
 #
 #
