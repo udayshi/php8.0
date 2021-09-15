@@ -45,35 +45,35 @@ Run -> Edit Configuration
 ```   
 	    
 
-#Install package using flex
+#### Install package using flex
 ```
 composer require annotation
 composer require twig
 composer require monolog  #Logger
+
+composer require doctrine
+composer require sec-checker
+composer require security-bundle
+
+composer require form validator
+
+composer require  orm-fixtures --dev
+composer require phpunit --dev
 composer require debug --dev
 composer require profiler --dev
 composer require maker --dev
 composer require phpunit --dev
-composer require doctrine
-composer require sec-checker
-composer require security-bundle
-composer require --dev orm-fixtures
-
-composer require form validator
 
 composer update
 ```
 
-#Setting PHPunit
+### Unpack Pack
 ```
-composer require phpunit --dev
-bin/phpunit
-
-cd /usr/local/bin && ln -sf /app/bin/phpunit phpunit
+composer unpack debug
 ```
 
 
-#Set the session path and make sure its writeable
+### Set the session path and make sure its writeable
 
 ```
 #config/packages/framework.yaml
@@ -84,17 +84,13 @@ framework:
 
 ```
 
-#Unpack Pack
-```
-composer unpack debug
-```
 
 
-#Install encore (Install node and yarn)
+
+### Install encore 
 ```
-composer require encore --dev
-yarn install
-#yarn add @symfony/webpack-encore --dev
+composer require encore --dev or yarn add @symfony/webpack-encore --dev
+
 
  yarn add bootstrap@4.*
  yarn add holderjs
@@ -104,7 +100,7 @@ yarn install
 ```
 
 
-#Installing production package only
+### Installing production package only
 ```
  composer install --no-dev --optimize-autoloader
 
@@ -112,7 +108,7 @@ yarn install
 ```
 
 
-#Doctrine Commands
+### Doctrine Commands
 
 ```
  #Database
