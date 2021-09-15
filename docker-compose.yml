@@ -10,8 +10,8 @@ services:
     links:
       - db:db
   db:
-    image: udaysh/db_mariadb-10
+    image: mariadb:10.6.4
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - MARIADB_ROOT_PASSWORD=changeit
       - MYSQL_DATABASE=php_db
     network_mode: bridge
