@@ -2,3 +2,5 @@
 
 CONF=alpine-php8.0.10
  docker build --rm    -t udaysh/$CONF .
+
+ docker rmi -f $(docker images -f "dangling=true" -q)

@@ -17,7 +17,7 @@ Install Following Pluggins:
 
 
 
-#Install package using flex
+# Install package using flex
 ##https://symfony.sh
 
 

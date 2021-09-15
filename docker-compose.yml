@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   php8:
-    image: udaysh/alpine-php8.0.10:xdebug-node
+    image: udaysh/alpine-php8.0.10:latest
     labels:
       - "com.lowecloud.proxy=php8.docker"
     volumes:
