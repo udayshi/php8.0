@@ -1,13 +1,14 @@
 version: "3.3"
 services:
   php8:
-    image: udaysh/alpine-php8.0.10:latest
+    image: udaysh/alpine-php8.0.10:xdebug-node
     labels:
       - "com.lowecloud.proxy=php8.docker"
     volumes:
       - "./app:/app"
     network_mode: bridge
-
+    links:
+      - db:db
   db:
     image: udaysh/db_mariadb-10
     environment:

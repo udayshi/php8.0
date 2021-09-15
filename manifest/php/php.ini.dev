@@ -1,15 +1,19 @@
-date.timezone = "Europe/London"
+date.timezone = ${TZ}
 session.save_path = "/var/sessions"
 post_max_size = 768M
 upload_max_filesize = 768M
-memory_limit = 64M
+memory_limit = 1024M
 
 opcache.enable = false
+allow_url_fopen = 0
+allow_url_include = 0
 
+;disable_functions = phpinfo, apache_child_terminate, define_syslog_variables, eval, ftp_connect, ftp_exec, ftp_get, ftp_login, ftp_nb_fput, ftp_put, ftp_raw, ftp_rawlist, ini_alter, ini_restore, inject_code, openlog, passthru, popen, posix_getpwuid, posix_kill, posix_mkfifo, posix_setpgid, posix_setsid, posix_setuid, posix_setuid, posix_uname, proc_close, proc_get_status, proc_nice, proc_open, proc_terminate, syslog, system, show_source, parse_ini_file
+open_basedir = "/app:/var/sessions:/tmp"
 
 
 [xdebug]
-zend_extension=/usr/local/lib/php/extensions/debug-non-zts-20190902/xdebug.so
+zend_extension=/usr/local/php8/lib/php/extensions/debug-non-zts-20200930/xdebug.so
 xdebug.remote_enable=1
 xdebug.remote_handler=dbgp
 xdebug.remove_port=9000

@@ -10,3 +10,5 @@ ADD manifest/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD ./manifest/php /usr/local/php8/etc/
 
 ADD app /app
+
+
