@@ -1,0 +1,39 @@
+FROM udaysh/php8.1.7-base  AS builder
+WORKDIR /app
+
+
+
+
+FROM alpine:3.12.8
+MAINTAINER shiuday@gmail.com
+
+RUN apk update && \
+    apk upgrade && \
+    apk add --no-cache bash git  nginx supervisor curl libxml2-dev openssl-dev  sqlite-dev curl-dev oniguruma-dev icu-dev libpng-dev libjpeg jpeg-dev
+
+
+RUN  git config --global user.email "uday@uday.com.np" && \
+git config --global user.name "Alpine Container"
+
+ENV TZ=Europe/London
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#
+COPY --from=builder  /usr/local/php8 /usr/local/php8
+COPY --from=builder  /usr/local/bin/composer /usr/local/bin/composer
+COPY --from=builder  /usr/local/sbin/ /usr/local/sbin/
+
+
+ADD manifest/nginx.sf5.conf /etc/nginx/nginx.conf
+ADD manifest/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD ./manifest/php /usr/local/php8/etc/
+RUN mkdir -p /var/sessions && chmod 777 /var/sessions
+
+EXPOSE 80 443
+ADD app /app/
+WORKDIR /app
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
+
+#docker build --rm    -t udaysh/php8.1.7-light -f  Dockerfile.8.1.prod .
+
+
